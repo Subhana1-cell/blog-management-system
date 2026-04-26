@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ blog.title }} | BlogSphere{% endblock %}
+
+{% block content %}
+
+<section class="page-header text-center">
+    <div class="container position-relative">
+        <span class="category-badge mb-3 fade-in-up">{{ blog.category.name }}</span>
+
+        <h1 class="page-title fade-in-up delay-1">
+            {{ blog.title }}
+        </h1>
+
+        <p class="lead text-soft fade-in-up delay-2">
+            By {{ blog.author.username }} • {{ blog.created_at|date:"M d, Y" }}
+        </p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <article class="glass-card overflow-hidden fade-in-up">
+
+                    {% if blog.image %}
+                        <div class="blog-img-wrap" style="height: 470px;">
+                            <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                        </div>
+                    {% endif %}
+
+                    <div class="p-4 p-md-5">
+                        <p class="fs-5 text-soft" style="line-height: 1.95;">
+                            {{ blog.content }}
+                        </p>
+
+                        <hr class="border-secondary my-5">
+
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <a href="{% url 'blog_list' %}" class="neon-btn">
+                                Back to All Blogs
+                            </a>
+
+                            <a href="{% url 'category_blogs' blog.category.slug %}" class="neon-btn">
+                                More in {{ blog.category.name }}
+                            </a>
+                        </div>
+                    </div>
+
+                </article>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

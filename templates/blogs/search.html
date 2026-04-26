@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Blogs | BlogSphere{% endblock %}
+
+{% block content %}
+
+<section class="page-header text-center">
+    <div class="container position-relative">
+        <p class="category-badge mb-3 fade-in-up">Search Engine</p>
+
+        <h1 class="page-title fade-in-up delay-1">
+            Search <span class="gradient-text">Blogs</span>
+        </h1>
+
+        {% if query %}
+            <p class="lead text-soft fade-in-up delay-2">
+                Results for: <strong class="text-white">{{ query }}</strong>
+            </p>
+        {% else %}
+            <p class="lead text-soft fade-in-up delay-2">
+                Search blogs by title and discover useful content.
+            </p>
+        {% endif %}
+
+        <form action="{% url 'search_blogs' %}" method="get" class="row justify-content-center mt-4 fade-in-up delay-3">
+            <div class="col-lg-7 col-md-9">
+                <div class="d-flex gap-2 glass-card p-2">
+                    <input type="text" name="q" value="{{ query }}" class="form-control form-control-dark" placeholder="Search blogs by title...">
+                    <button type="submit" class="neon-btn border-0">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row">
+            {% for blog in blogs %}
+                <div class="col-lg-4 col-md-6 mb-4 fade-in-up">
+                    <div class="blog-card-3d h-100">
+
+                        {% if blog.image %}
+                            <div class="blog-img-wrap">
+                                <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                            </div>
+                        {% endif %}
+
+                        <div class="p-4">
+                            <span class="category-badge mb-3">{{ blog.category.name }}</span>
+
+                            <h4 class="fw-bold mt-3">
+                                <a href="{% url 'blog_detail' blog.slug %}" class="text-white text-decoration-none">
+                                    {{ blog.title }}
+                                </a>
+                            </h4>
+
+                            <p class="text-soft">
+                                {{ blog.content|truncatewords:25 }}
+                            </p>
+
+                            <a href="{% url 'blog_detail' blog.slug %}" class="neon-btn d-inline-block mt-2">
+                                Read More
+                            </a>
+                        </div>
+
+                        <div class="px-4 pb-4">
+                            <small class="text-soft">
+                                By {{ blog.author.username }} • {{ blog.created_at|date:"M d, Y" }}
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p class="text-soft">No blogs found.</p>
+                    <a href="{% url 'blog_list' %}" class="neon-btn">View All Blogs</a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
