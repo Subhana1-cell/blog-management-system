@@ -156,28 +156,8 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-Screenshots to Add
+Screenshots Added
 
-Screenshots can be added for:
 
-Homepage
-All Blogs page
-Blog Detail page
-Category page
-Search page
-Admin panel
-Blog management page
-Category management page
-User management page
-Group/role management page
-Future Improvements
-Comment system
-Like and share feature
-Rich text editor
-Author dashboard
-Blog approval workflow
-Advanced search and filtering
-Deployment to live server
-Developer
 
 Developed by Subhana Shakil
